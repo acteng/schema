@@ -7,8 +7,11 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  echo = FALSE
 )
+library(tidyverse)
+library(tmap)
 ```
 
 # schema
@@ -58,6 +61,83 @@ Versioning the schema will ensure backwards compatibility and encourage innovati
 ## Existing active travel infrastructure schemas
 
 ### TfL's Cycling Infrastructure Database (CID)
+
+The CID's data has a rather verbose schema in which many attributes such as cycleway type are converted into a series of boolean (TRUE/FALSE) expressions.
+Converted into a dataset in the Arrow format, the column names and associated data types, example values, asset types and labels are as follows, for the cycleway table:
+
+```{r get_cid_once, eval=FALSE}
+# Get schema
+u = "https://cycling.data.tfl.gov.uk/CyclingInfrastructure/documentation/cid_database_schema.xlsx"
+f = basename(u)
+if (!file.exists(f)) {
+  download.file(u, f)
+}
+readxl::excel_sheets(f)
+tfl_schema = readxl::read_excel(f, sheet = 3)
+write_csv(tfl_schema, "example_data/tfl_field_names.csv")
+library(osmdata)
+remotes::install_github("PublicHealthDataGeek/CycleInfraLnd")
+?CycleInfraLnd::get_cid_lines
+blackfriars_bridge_road = opq(bbox = "London") |> 
+  add_osm_feature(key = "name", value = "Blackfriars Bridge") |> 
+  osmdata_sf() |> 
+  pluck("osm_multilines")
+blackfriars_buffer = sf::st_buffer(blackfriars_bridge_road, 500)
+mapview::mapview(blackfriars_bridge_road)
+cid_cycle_lane_track = CycleInfraLnd::get_cid_lines(type = "cycle_lane_track")
+is_true_false = function(x) {
+  all(x %in% c("TRUE", "FALSE"))
+}
+is_true_false(cid_cycle_lane_track$CLT_CARR)
+is_true_false(cid_cycle_lane_track$FEATURE_ID)
+cid_cycle = cid_cycle_lane_track |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_cycle_lane_track_blackfriars = cid_cycle_lane_track[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+dir.create("example_data")
+sf::write_sf(cid_cycle_lane_track_blackfriars, "example_data/cid_cycle_lane_track_blackfriars.geojson", delete_dsn = TRUE)
+tm_shape(cid_cycle_lane_track_blackfriars) +
+  tm_lines()
+```
+
+```{r, message=FALSE}
+tfl_schema = read_csv("example_data/tfl_field_names.csv")
+tfl_schema = tfl_schema |> 
+  rename(Name = fieldname)
+cid_cycle_lane = sf::read_sf("example_data/cid_cycle_lane_track_blackfriars.geojson")
+# table(cid_cycle_lane$CLT_CARR)
+# cid_cycle_lane_track_blackfriars |> as_tibble() |> slice(1:3)
+cid_cycle_lane_df = cid_cycle_lane |> 
+  sf::st_drop_geometry()
+cid_cycle_lane_arrow = cid_cycle_lane_df |> 
+  arrow::as_arrow_table()
+arrow::write_parquet(cid_cycle_lane_arrow, "example_data/cid_cycle_lane_track_blackfriars.parquet")
+# cid_cycle_lane_schema = cid_cycle_lane_arrow$schema
+# cid_cycle_lane_schema[2]
+# cid_cycle_types = NULL
+# i = 1
+# for(i in seq(ncol(cid_cycle_lane_df))) {
+#   cid_cycle_types = c(cid_cycle_types, class(arrow::infer_type(cid_cycle_lane_schema[]))[1])
+# }
+cid_cycle_types = map_chr(cid_cycle_lane_df, function(x) class(arrow::infer_type(x))[1])
+cid_cycle_example_value = as.character(cid_cycle_lane_df[1, ])
+cid_cycle_schema = tibble(
+  Name = names(cid_cycle_types),
+  Type = cid_cycle_types,
+  Example = cid_cycle_example_value
+)
+cid_cycle_schema = inner_join(cid_cycle_schema, tfl_schema)
+cid_cycle_schema = cid_cycle_schema |> 
+  mutate(description = gsub(pattern = "\\n", replacement = " ", x = description))
+# arrow::type(cid_cycle_lane_arrow$columns)
+# map(cid_cycle_lane_track, arrow::infer_type)
+# cid_cycle_lane_schema$names
+# cid_cycle_lane_schema$num_fields
+# as.ch(cid_cycle_lane_schema$fields)
+knitr::kable(cid_cycle_schema)
+```
+
+In a future schema, many of the variables in the schema above could be replaced by a well-defined 'type' column that accepts values including On Road Advisory Cycle Lane, Dedicated Cycle Track and Stepped Cycle Track (covering columns 3 to 5 in the above table).
 
 ### Ordnance Survey Schemas
 
