@@ -30,4 +30,9 @@ Having such a schema offers advantages:
 -   Future-proofness: an evolving schema with empty fields that may
     become useful encourages datasets to be kept up-to-date
 
-## An example schema (to be updated)
+## An example schema
+
+A basic example of a schema for active travel infrastructure is shown
+below.
+
+![](https://user-images.githubusercontent.com/1825120/185741429-fabb3183-bcbe-4bd9-8396-dff4a533d55d.png)
