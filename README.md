@@ -36,3 +36,21 @@ A basic example of a schema for active travel infrastructure is shown
 below.
 
 ![](https://user-images.githubusercontent.com/1825120/185741429-fabb3183-bcbe-4bd9-8396-dff4a533d55d.png)
+
+In this schema, there are three tables representing neteworks, routes
+and ways. The ways represent the individual segments that, in
+combination, form routes. In turn, many routes can add-up to represent a
+network. Networks could cover an entire city or be small, e.g. to
+represent the travel network in a particular neighbourhood.
+
+## Schema versioning
+
+Just like software used to process data, data formats, and the
+underlying schemas that define them, should evolve over time. To extend
+the schema above we can add more fields such as MinWidth and MaxWidth
+and add another table, representing point features on the network. This
+updated schema is illustrated below.
+
+![](https://user-images.githubusercontent.com/1825120/185744446-0896f9e8-de0b-43d9-ac9e-21735762017f.png)
+
+## Existing active travel infrastructure schemas
