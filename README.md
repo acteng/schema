@@ -53,4 +53,33 @@ updated schema is illustrated below.
 
 ![](https://user-images.githubusercontent.com/1825120/185744446-0896f9e8-de0b-43d9-ac9e-21735762017f.png)
 
+In the future the schema could evolve further. Versioning the schema
+will ensure backwards compatibility and encourage innovation.
+
 ## Existing active travel infrastructure schemas
+
+### TfL’s Cycling Infrastructure Database (CID)
+
+    #> Simple feature collection with 3 features and 22 fields
+    #> Geometry type: MULTILINESTRING
+    #> Dimension:     XY
+    #> Bounding box:  xmin: -0.1049912 ymin: 51.51207 xmax: -0.1021697 ymax: 51.51534
+    #> Geodetic CRS:  WGS 84
+    #> # A tibble: 3 × 23
+    #>   FEATURE_ID SVDATE     CLT_CARR CLT_S…¹ CLT_S…² CLT_P…³ CLT_S…⁴ CLT_M…⁵ CLT_A…⁶
+    #>   <chr>      <date>     <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+    #> 1 RWG066500  2017-07-01 TRUE     TRUE    FALSE   FALSE   FALSE   FALSE   FALSE  
+    #> 2 RWG066522  2017-07-03 TRUE     TRUE    FALSE   FALSE   FALSE   FALSE   FALSE  
+    #> 3 RWG066722  2017-09-06 TRUE     FALSE   FALSE   FALSE   FALSE   FALSE   FALSE  
+    #> # … with 14 more variables: CLT_PRIORI <chr>, CLT_CONTRA <chr>,
+    #> #   CLT_BIDIRE <chr>, CLT_CBYPAS <chr>, CLT_BBYPAS <chr>, CLT_PARKR <chr>,
+    #> #   CLT_WATERR <chr>, CLT_PTIME <chr>, CLT_ACCESS <chr>, CLT_COLOUR <chr>,
+    #> #   BOROUGH <chr>, PHOTO1_URL <chr>, PHOTO2_URL <chr>,
+    #> #   geometry <MULTILINESTRING [°]>, and abbreviated variable names ¹​CLT_SEGREG,
+    #> #   ²​CLT_STEPP, ³​CLT_PARSEG, ⁴​CLT_SHARED, ⁵​CLT_MANDAT, ⁶​CLT_ADVIS
+
+### Ordnance Survey Schemas
+
+### OSM’s unstructured approach
+
+### The OpenInfra project
