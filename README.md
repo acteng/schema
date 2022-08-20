@@ -60,11 +60,28 @@ will ensure backwards compatibility and encourage innovation.
 
 ### TfL’s Cycling Infrastructure Database (CID)
 
+The CID contains detailed data on London’s cycle infrastructure, divided
+into the following tables (see the
+[example_data](https://github.com/acteng/schema/tree/main/example_data)
+folder for examples):
+
+| Table              | Geometry |
+|:-------------------|:---------|
+| Advanced Stop Line | Line     |
+| Crossing           | Line     |
+| Cycle lane/track   | Line     |
+| Restricted Route   | Line     |
+| Cycle Parking      | Point    |
+| Restricted Point   | Point    |
+| Signage            | Point    |
+| Signal             | Point    |
+| Traffic Calming    | Point    |
+
 The CID’s data has a rather verbose schema in which many attributes such
 as cycleway type are converted into a series of boolean (TRUE/FALSE)
 expressions. Converted into a dataset in the Arrow format, the column
 names and associated data types, example values, asset types and labels
-are as follows, for the cycleway table:
+are as follows, for the Cycle lane/track table, for example:
 
 | Name       | Type    | Example                                                    | assettype        | label                                                  | description                                                                                                    |
 |:-----------|:--------|:-----------------------------------------------------------|:-----------------|:-------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------|
@@ -94,7 +111,11 @@ are as follows, for the cycleway table:
 In a future schema, many of the variables in the schema above could be
 replaced by a well-defined ‘type’ column that accepts values including
 On Road Advisory Cycle Lane, Dedicated Cycle Track and Stepped Cycle
-Track (covering columns 3 to 5 in the above table).
+Track (covering columns 3 to 5 in the above table). See the repo
+<https://github.com/PublicHealthDataGeek/CycleInfraLnd/> and associated
+paper (Tait et al.,
+[2022](https://www.sciencedirect.com/science/article/pii/S221414052200041X))
+for further details on the CID.
 
 ### Ordnance Survey Schemas
 
