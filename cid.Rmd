@@ -27,7 +27,9 @@ readxl::excel_sheets(f)
 tfl_schema = readxl::read_excel(f, sheet = 3)
 # summary(duplicated(tfl_schema))
 write_csv(tfl_schema, "example_data/tfl_field_names.csv")
-knitr::kable(tfl_schema)
+tfl_schema |> 
+  mutate(description = gsub(pattern = "\\n", replacement = " ", x = description)) |> 
+  knitr::kable()
 ```
 
 Converted into a dataset in the Arrow format, the column names and associated data types, example values, asset types and labels are as follows, for the Cycle lane/track table, for example:
