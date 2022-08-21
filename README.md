@@ -65,26 +65,23 @@ into the following tables (see the
 [example_data](https://github.com/acteng/schema/tree/main/example_data)
 folder for examples):
 
-| Table              | Geometry |
-|:-------------------|:---------|
-| Advanced Stop Line | Line     |
-| Crossing           | Line     |
-| Cycle lane/track   | Line     |
-| Restricted Route   | Line     |
-| Cycle Parking      | Point    |
-| Restricted Point   | Point    |
-| Signage            | Point    |
-| Signal             | Point    |
-| Traffic Calming    | Point    |
+| Table              | Geometry |   Rows | Columns | Names                                                                                                                                                                                                                                                                                                                                                                                   |
+|:-------------------|:---------|-------:|--------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Advanced Stop Line | Line     |   3775 |      12 | FEATURE_ID, SVDATE, ASL_FDR, ASL_FDRLFT, ASL_FDCENT, ASL_FDRIGH, ASL_SHARED, ASL_COLOUR, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                                                                                                                                      |
+| Crossing           | Line     |   1687 |      11 | FEATURE_ID, SVDATE, CRS_SIGNAL, CRS_SEGREG, CRS_CYGAP, CRS_PEDEST, CRS_LEVEL, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                                                                                                                                                 |
+| Cycle lane/track   | Line     |   3775 |      12 | FEATURE_ID, SVDATE, CLT_CARR, CLT_SEGREG, CLT_STEPP, CLT_PARSEG, CLT_SHARED, CLT_MANDAT, CLT_ADVIS, CLT_PRIORI, CLT_CONTRA, CLT_BIDIRE, CLT_CBYPAS, CLT_BBYPAS, CLT_PARKR, CLT_WATERR, CLT_PTIME, CLT_ACCESS, CLT_COLOUR, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                     |
+| Restricted Route   | Line     |   1378 |      11 | FEATURE_ID, SVDATE, RES_PEDEST, RES_BRIDGE, RES_TUNNEL, RES_STEPS, RES_LIFT, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                                                                                                                                                  |
+| Cycle Parking      | Point    |  23758 |      22 | FEATURE_ID, SVDATE, PRK_CARR, PRK_COVER, PRK_SECURE, PRK_LOCKER, PRK_SHEFF, PRK_MSTAND, PRK_PSTAND, PRK_HOOP, PRK_POST, PRK_BUTERF, PRK_WHEEL, PRK_HANGAR, PRK_TIER, PRK_OTHER, PRK_PROVIS, PRK_CPT, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                          |
+| Restricted Point   | Point    |  23758 |      22 | FEATURE_ID, SVDATE, PRK_CARR, PRK_COVER, PRK_SECURE, PRK_LOCKER, PRK_SHEFF, PRK_MSTAND, PRK_PSTAND, PRK_HOOP, PRK_POST, PRK_BUTERF, PRK_WHEEL, PRK_HANGAR, PRK_TIER, PRK_OTHER, PRK_PROVIS, PRK_CPT, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                          |
+| Signage            | Point    | 118834 |      37 | FEATURE_ID, SVDATE, SS_ROAD, SS_PATCH, SS_FACING, SS_NOCYC, SS_NOVEH, SS_CIRC, SS_EXEMPT, SS_NOLEFT, SS_NORIGH, SS_LEFT, SS_RIGHT, SS_NOEXCE, SS_DISMOU, SS_END, SS_CYCSMB, SS_PEDSMB, SS_BUSSMB, SS_SMB, SS_LNSIGN, SS_ARROW, SS_NRCOL, SS_NCN, SS_LCN, SS_SUPERH, SS_QUIETW, SS_GREENW, SS_ROUTEN, SS_DESTN, SS_ACCESS, SS_NAME, SS_COLOUR, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry |
+| Signal             | Point    |    443 |      11 | FEATURE_ID, SVDATE, SIG_HEAD, SIG_SEPARA, SIG_EARLY, SIG_TWOSTG, SIG_GATE, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                                                                                                                                                    |
+| Traffic Calming    | Point    |  58565 |      14 | FEATURE_ID, SVDATE, TRF_RAISED, TRF_ENTRY, TRF_CUSHI, TRF_HUMP, TRF_SINUSO, TRF_BARIER, TRF_NAROW, TRF_CALM, BOROUGH, PHOTO1_URL, PHOTO2_URL, geometry                                                                                                                                                                                                                                  |
 
 The CID’s data has a rather verbose schema in which many attributes such
 as cycleway type are converted into a series of boolean (TRUE/FALSE)
 expressions. Converted into a dataset in the Arrow format, the column
 names and associated data types, example values, asset types and labels
 are as follows, for the Cycle lane/track table, for example:
-
-    #>  [1]  1  2  3  4  5  6  7  8  9 10
-    #>  [1] 10  9  8  7  6  5  4  3  2  1
 
 In a future schema, many of the variables in the schema above could be
 replaced by a well-defined ‘type’ column that accepts values including

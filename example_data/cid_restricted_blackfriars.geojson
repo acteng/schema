@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "cid_restricted_blackfriars",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "FEATURE_ID": "RWG066933", "SVDATE": "2017-09-10", "RES_PEDEST": true, "RES_BRIDGE": false, "RES_TUNNEL": false, "RES_STEPS": false, "RES_LIFT": false, "BOROUGH": "City of London", "PHOTO1_URL": "https://cycleassetimages.data.tfl.gov.uk/RWG066933_1.jpg", "PHOTO2_URL": "https://cycleassetimages.data.tfl.gov.uk/RWG066933_2.jpg" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -0.1045968042, 51.5143328642 ], [ -0.1046064683, 51.514378493300001 ], [ -0.1046342316, 51.514418470499997 ] ] ] } },
+{ "type": "Feature", "properties": { "FEATURE_ID": "RWG109327", "SVDATE": "2017-11-15", "RES_PEDEST": true, "RES_BRIDGE": true, "RES_TUNNEL": false, "RES_STEPS": false, "RES_LIFT": false, "BOROUGH": null, "PHOTO1_URL": "https://cycleassetimages.data.tfl.gov.uk/RWG109327_1.jpg", "PHOTO2_URL": "https://cycleassetimages.data.tfl.gov.uk/RWG109327_2.jpg" }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -0.0984229042, 51.511118071299997 ], [ -0.0985331447, 51.50961771 ], [ -0.098596334, 51.508121357900002 ] ] ] } }
+]
+}

@@ -52,16 +52,71 @@ tm_shape(cid_cycle_lane_track_blackfriars) +
 
 # ASL data
 cid_asl = CycleInfraLnd::get_cid_lines(type = "advanced_stop_line")
-cid_cycle = cid_asl |> 
+cid_asl = cid_asl |> 
   mutate_if(.predicate = is_true_false, .funs = as.logical) 
 cid_asl_blackfriars = cid_asl[blackfriars_buffer, , op = sf::st_within] |> 
   mutate_if(.predicate = is_true_false, .funs = as.logical) 
 sf::write_sf(cid_asl_blackfriars, "example_data/cid_asl_blackfriars.geojson", delete_dsn = TRUE)
-tm_shape(cid_asl_blackfriars) +
-  tm_lines()
+
+# crossing data
+cid_crossing = CycleInfraLnd::get_cid_lines(type = "crossing")
+cid_crossing = cid_crossing |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_crossing_blackfriars = cid_crossing[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_crossing_blackfriars, "example_data/cid_crossing_blackfriars.geojson", delete_dsn = TRUE)
+plot(cid_crossing_blackfriars)
+
+# restricted data
+cid_restricted = CycleInfraLnd::get_cid_lines(type = "restricted_route")
+cid_restricted = cid_restricted |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_restricted_blackfriars = cid_restricted[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_restricted_blackfriars, "example_data/cid_restricted_blackfriars.geojson", delete_dsn = TRUE)
+
+# cycle parking
+cid_cycle_parking = CycleInfraLnd::get_cid_points(type = "cycle_parking")
+cid_cycle_parking = cid_cycle_parking |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_cycle_parking_blackfriars = cid_cycle_parking[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_cycle_parking_blackfriars, "example_data/cid_cycle_parking_blackfriars.geojson", delete_dsn = TRUE)
+
+# restricted data
+cid_restricted_point = CycleInfraLnd::get_cid_points(type = "restricted_point")
+cid_restricted_point = cid_restricted_point |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_restricted_point_blackfriars = cid_restricted_point[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_restricted_point, "example_data/cid_restricted_point.geojson", delete_dsn = TRUE)
+
+# signaage
+cid_signage = CycleInfraLnd::get_cid_points(type = "signage")
+cid_signage = cid_signage |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_signage_blackfriars = cid_signage[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_signage_blackfriars, "example_data/cid_signage_blackfriars.geojson", delete_dsn = TRUE)
+
+# signals
+cid_signal = CycleInfraLnd::get_cid_points(type = "signal")
+cid_signal = cid_signal |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_signal_blackfriars = cid_signal[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_signal, "example_data/cid_signal_blackfriars.geojson", delete_dsn = TRUE)
+
+# traffic_calmings
+cid_traffic_calming = CycleInfraLnd::get_cid_points(type = "traffic_calming")
+cid_traffic_calming = cid_traffic_calming |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+cid_traffic_calming_blackfriars = cid_traffic_calming[blackfriars_buffer, , op = sf::st_within] |> 
+  mutate_if(.predicate = is_true_false, .funs = as.logical) 
+sf::write_sf(cid_traffic_calming, "example_data/cid_traffic_calming_blackfriars.geojson", delete_dsn = TRUE)
 ```
 
-```{r, message=FALSE}
+```{r blackfriars_table, message=FALSE}
 tfl_schema = read_csv("example_data/tfl_field_names.csv")
 tfl_schema = tfl_schema |> 
   rename(Name = fieldname)
@@ -80,25 +135,42 @@ arrow::write_parquet(cid_cycle_lane_arrow, "example_data/cid_cycle_lane_track_bl
 # for(i in seq(ncol(cid_cycle_lane_df))) {
 #   cid_cycle_types = c(cid_cycle_types, class(arrow::infer_type(cid_cycle_lane_schema[]))[1])
 # }
-cid_cycle_types = map_chr(cid_cycle_lane_df, function(x) class(arrow::infer_type(x))[1])
-cid_cycle_example_value = as.character(cid_cycle_lane_df[1, ])
-cid_cycle_schema = tibble(
-  Name = names(cid_cycle_types),
-  Type = cid_cycle_types,
-  Example = cid_cycle_example_value
-)
-cid_cycle_schema = inner_join(cid_cycle_schema, tfl_schema)
-cid_cycle_schema = cid_cycle_schema |> 
-  mutate(description = gsub(pattern = "\\n", replacement = " ", x = description))
 # arrow::type(cid_cycle_lane_arrow$columns)
 # map(cid_cycle_lane_track, arrow::infer_type)
 # cid_cycle_lane_schema$names
 # cid_cycle_lane_schema$num_fields
 # as.ch(cid_cycle_lane_schema$fields)
-knitr::kable(cid_cycle_schema)
+# knitr::kable(cid_cycle_schema)
+```
+
+```{r}
+cid_tables = tibble::tribble(
+  ~Table, ~Geometry, ~Rows, ~Columns,
+    "Advanced Stop Line", "Line", nrow(cid_asl), ncol(cid_asl),
+    "Crossing", "Line", nrow(cid_crossing), ncol(cid_crossing),
+    "Cycle lane/track", "Line", nrow(cid_cycle_lane_track), ncol(cid_cycle_lane_track),
+    "Restricted Route", "Line", nrow(cid_restricted), ncol(cid_restricted),
+    "Cycle Parking", "Point", nrow(cid_cycle_parking), ncol(cid_cycle_parking),
+    "Restricted Point", "Point", nrow(cid_restricted_point), ncol(cid_restricted_point),
+    "Signage", "Point", nrow(cid_signage), ncol(cid_signage),
+    "Signal", "Point", nrow(cid_signal), ncol(cid_signal),
+    "Traffic Calming", "Point", nrow(cid_traffic_calming), ncol(cid_traffic_calming)
+)
+cid_tables$Names = NA
+cid_tables$Names[1] = paste0(names(cid_asl), collapse = ", ")
+cid_tables$Names[2] = paste0(names(cid_crossing), collapse = ", ")
+cid_tables$Names[3] = paste0(names(cid_cycle_lane_track_blackfriars), collapse = ", ")
+cid_tables$Names[4] = paste0(names(cid_restricted), collapse = ", ")
+cid_tables$Names[5] = paste0(names(cid_cycle_parking), collapse = ", ")
+cid_tables$Names[6] = paste0(names(cid_restricted_point), collapse = ", ")
+cid_tables$Names[7] = paste0(names(cid_signage), collapse = ", ")
+cid_tables$Names[8] = paste0(names(cid_signal), collapse = ", ")
+cid_tables$Names[9] = paste0(names(cid_traffic_calming), collapse = ", ")
+write_csv(cid_tables, "example_data/cid_tables.csv")
 ```
 
 ```{r, message=FALSE}
+# concise dataset
 cid_cycle_lane_df = cid_cycle_lane |> 
   sf::st_drop_geometry()
 cid_cycle_lane_arrow = cid_cycle_lane_df |> 
