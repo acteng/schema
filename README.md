@@ -86,9 +86,11 @@ are as follows, for the Cycle lane/track table, for example:
 In a future schema, many of the variables in the schema above could be
 replaced by a well-defined ‘type’ column that accepts values including
 On Road Advisory Cycle Lane, Dedicated Cycle Track and Stepped Cycle
-Track (covering columns 3 to 5 in the above table). See the repo
-<https://github.com/PublicHealthDataGeek/CycleInfraLnd/> and associated
-paper (Tait et al.,
+Track (covering columns 3 to 5 in the above table). See the
+[cid](cid.md) example, [TfL’s schema
+document](https://cycling.data.tfl.gov.uk/CyclingInfrastructure/documentation/cid_database_schema.xlsx),
+the repo <https://github.com/PublicHealthDataGeek/CycleInfraLnd/> and
+associated paper (Tait et al.,
 [2022](https://www.sciencedirect.com/science/article/pii/S221414052200041X))
 for further details on the CID.
 
