@@ -14,9 +14,9 @@ library(tmap)
 
 # CID data types
 
-Converted into a dataset in the Arrow format, the column names and associated data types, example values, asset types and labels are as follows, for the Cycle lane/track table, for example:
+There are 102 uniquely named columns in the CID, as shown below.
 
-```{r get_cid_once, eval=FALSE}
+```{r tfl_schema}
 # Get schema
 u = "https://cycling.data.tfl.gov.uk/CyclingInfrastructure/documentation/cid_database_schema.xlsx"
 f = basename(u)
@@ -25,7 +25,14 @@ if (!file.exists(f)) {
 }
 readxl::excel_sheets(f)
 tfl_schema = readxl::read_excel(f, sheet = 3)
+# summary(duplicated(tfl_schema))
 write_csv(tfl_schema, "example_data/tfl_field_names.csv")
+knitr::kable(tfl_schema)
+```
+
+Converted into a dataset in the Arrow format, the column names and associated data types, example values, asset types and labels are as follows, for the Cycle lane/track table, for example:
+
+```{r get_cid_once, eval=FALSE}
 library(osmdata)
 remotes::install_github("PublicHealthDataGeek/CycleInfraLnd")
 ?CycleInfraLnd::get_cid_lines
@@ -143,7 +150,7 @@ arrow::write_parquet(cid_cycle_lane_arrow, "example_data/cid_cycle_lane_track_bl
 # knitr::kable(cid_cycle_schema)
 ```
 
-```{r}
+```{r runouncesummary, eval=FALSE}
 cid_tables = tibble::tribble(
   ~Table, ~Geometry, ~Rows, ~Columns,
     "Advanced Stop Line", "Line", nrow(cid_asl), ncol(cid_asl),
