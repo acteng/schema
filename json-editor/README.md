@@ -1,0 +1,1 @@
+Files in this folder use this convention for defining schemas and converting them into user interfaces: https://github.com/json-editor/json-editor

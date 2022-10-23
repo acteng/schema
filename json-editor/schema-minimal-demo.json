@@ -1,0 +1,25 @@
+{
+    "title": "Intervention",
+    "type": "object",
+    "required": [
+      "name",
+      "intervention_type"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Name of the intervention",
+        "minLength": 4,
+        "default": "Chapeltown Active Travel Neighbourhood"
+      },
+      "intervention_type": {
+        "type": "string",
+        "enum": [
+          "area",
+          "route",
+          "crossing",
+          "other"
+        ]
+      }
+    }
+  }
