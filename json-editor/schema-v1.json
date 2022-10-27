@@ -9,22 +9,29 @@
     "properties": {
       "name": {
         "type": "string",
+        "title": "Name of the intervention",
+        "description": "Name of the intervention",
         "minLength": 4,
-        "default": "Name of the intervention"
+        "default": ""
       },
         "description": {
           "type": "string",
+          "title": "Description of intervention",
           "minLength": 10,
-          "default": "Description (max 140 characters)"
+          "maxLength": 140,
+          "description": "Description (max 140 characters)"
         },
       "year": {
         "type": "string",
+        "title": "Year",
+        "description": "Main financial year of expenditure on intervention",
         "minLength": 7,
         "maxLength": 7,
         "default": "2022/23"
       },
       "budget": {
         "type": "integer",
+        "title": "Budget (£)",
         "minLength": 3,
         "maxLength": 7,
         "default": "10000"
