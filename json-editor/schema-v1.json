@@ -9,17 +9,17 @@
     "properties": {
       "name": {
         "type": "string",
-        "title": "Name of the intervention",
+        "title": "Name",
         "description": "Name of the intervention",
         "minLength": 4,
         "default": ""
       },
         "description": {
           "type": "string",
-          "title": "Description of intervention",
+          "title": "Description",
           "minLength": 10,
           "maxLength": 140,
-          "description": "Description (max 140 characters)"
+          "description": "Description of the intervention (max 140 characters)"
         },
       "year": {
         "type": "string",
@@ -32,6 +32,7 @@
       "budget": {
         "type": "integer",
         "title": "Budget (£)",
+        "description": "Total budget allocated to intervention",
         "minLength": 3,
         "maxLength": 7,
         "default": "10000"
