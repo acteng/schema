@@ -34,7 +34,7 @@
         "title": "Budget (£)",
         "description": "Total budget allocated to intervention",
         "minLength": 3,
-        "maxLength": 7,
+        "maxLength": 8,
         "default": "10000"
       }
     }
