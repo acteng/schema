@@ -1,0 +1,20 @@
+{
+  "properties": {
+    "separation": {
+      "type": "string",
+      "enum": [
+        "Fully separation",
+        "Stepped",
+        "Part separation",
+        "Mandatory lane",
+        "Advisory lane"
+      ]
+    },
+    "width": {
+      "title": "Width (m)",
+      "description": "Average width of the route in metres",
+      "type": "number",
+      "default": "2.5"
+    }
+  }
+}
