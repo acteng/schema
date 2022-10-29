@@ -17,8 +17,8 @@
       "description": "The main way in which the route relates to roads",
       "type": "string",
       "enum": [
-        "Parallel to major roads",
-        "Parallel to minor roads",
+        "Parallel to major road(s)",
+        "Parallel to minor road(s)",
         "Off carriageway on existing route"
       ]
     },
@@ -27,7 +27,7 @@
       "description": "The main source of new space for active travel",
       "type": "string",
       "enum": [
-        "Reallocation of a vehicular lane on the carriageway",
+        "Reallocation of a complete vehicular lane on the carriageway",
         "Road diet: vehicular carriageway thinned, creating new space",
         "Pavement diet: existing pavement space reallocated",
         "Verge or other unused space reallocated"
@@ -38,7 +38,7 @@
       "description": "The main way in which the route is separated from motor traffic",
       "type": "string",
       "enum": [
-        "Fully separation",
+        "Full separation",
         "Stepped",
         "Part separation",
         "Mandatory lane",
