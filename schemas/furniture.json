@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "furniture_type": {
+      "title": "Intervention type (other)",
+      "description": "The main type of intervention",
+      "type": "string",
+      "enum": [
+        "Parklet",
+        "Play area",
+        "Secure cycle parking (e.g. hangars)",
+        "Covered open cycle parking",
+        "Uncovered open cycle parking",
+        "Other"
+      ]
+    }
+   }
+}
