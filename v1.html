@@ -10,7 +10,8 @@
 
 <body>
   <h1>Schema v1</h1>
-  <p>This options below represent <a href="https://github.com/acteng/schema/tree/main/schemas">editable JSON schema files.</a> </p>
+  <p>This options below represent <a href="https://github.com/acteng/schema/tree/main/schemas">editable JSON schema
+      files.</a> </p>
   <p>Comments and suggested changes are welcome</p>
   <h2>Active travel infrastructure interventions</h2>
 
@@ -23,9 +24,59 @@
       disable_collapse: true,
       theme: 'bootstrap4',
       schema: {
-        "title": "Generic information",
+        "$id": "https://example.com/arrays.schema.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "description": "A representation of a person, company, organization, or place",
         "type": "object",
-        $ref: "schemas/all.json"
+        "properties": {
+          // "basic": {
+          //   "title": "Generic intervention (minimal)",
+          //   "type": "array",
+          //   "items": {
+          //     $ref: "schemas/all.json"
+          //   }
+          // },
+          "area": {
+            "title": "Area intervention",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "schemas/all.json" },
+                { "$ref": "schemas/areas.json" }
+              ]
+            }
+          },
+          "crossing": {
+            "title": "Crossing intervention",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "schemas/all.json" },
+                { "$ref": "schemas/crossings.json" }
+              ]
+            }
+          },
+          "route": {
+            "title": "Route intervention",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "schemas/all.json" },
+                { "$ref": "schemas/routes.json" }
+              ]
+            }
+          },
+          "other": {
+            "title": "Other intervention type",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "schemas/all.json" },
+                { "$ref": "schemas/other.json" }
+              ]
+            }
+          }
+        },
       }
     });
   </script>
@@ -37,38 +88,48 @@
       disable_collapse: true,
       theme: 'bootstrap4',
       schema: {
-          type: "array",
-          title: "Type specific fields",
-          format: "tabs",
-          items: {
-            title: "Extra fields",
-            headerTemplate: "{{i}} - {{self.name}}",
-            oneOf: [
-              {
-                $ref: "schemas/areas.json",
-                title: "Area intervention"
-              },
-              {
-                $ref: "schemas/crossings.json",
-                title: "Crossing intervention"
-              },
-              {
-                $ref: "schemas/routes.json",
-                title: "Route intervention"
-              },
-              {
-                $ref: "schemas/other.json",
-                title: "Other intervention"
-              }
-            ]
-          }
-        }
+        type: "array",
+        title: "Type specific fields",
+        format: "tabs",
+        items: {
+          title: "Extra fields",
+          headerTemplate: "{{i}} - {{self.name}}",
+          oneOf: [
+            // {
+            //   $ref: "schemas/areas.json",
+            //   title: "Area intervention"
+            // },
+            // {
+            //   $ref: "schemas/crossings.json",
+            //   title: "Crossing intervention"
+            // },
+            {
+              $ref: "schemas/routes.json",
+              title: "Route intervention",
+              name: "routes"
+            },
+            {
+              $ref: "schemas/other.json",
+              title: "Other intervention",
+              name: "other"
+            }
+          ]
+        },
+
+        // Disable additional properties
+        no_additional_properties: true,
+
+        // Require all properties by default
+        required_by_default: true
+      }
     });
   </script>
 
   <h1>References</h1>
   <p>https://www.4wheelz.co.uk/learning-to-drive/pedestrian-crossings/</p>
-  <p>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/330214/ltn-2-95_pedestrian-crossings.pdf</p>
+  <p>
+    https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/330214/ltn-2-95_pedestrian-crossings.pdf
+  </p>
   <p>https://content.tfl.gov.uk/lcds-chapter5-junctionsandcrossings.pdf</p>
 
 </body>

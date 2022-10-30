@@ -10,7 +10,8 @@
         "Cycleway",
         "Contraflow",
         "Quietway"
-      ]
+      ],
+      "default": "Footpath"
     },
     "on_carriageway": {
       "title": "Relationship to carriageway",
