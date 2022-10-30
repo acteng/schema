@@ -1,7 +1,7 @@
 {
   "properties": {
     "furniture_type": {
-      "title": "Intervention type (other)",
+      "title": "Type of street furniture or urban realm intervention",
       "description": "The main type of intervention",
       "type": "string",
       "enum": [
