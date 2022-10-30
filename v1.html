@@ -66,8 +66,18 @@
               ]
             }
           },
+          "furniture": {
+            "title": "Street furniture and urban realm interventions",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "schemas/all.json" },
+                { "$ref": "schemas/furniture.json" }
+              ]
+            }
+          },
           "other": {
-            "title": "Other intervention type",
+            "title": "Other active travel interventions",
             "type": "array",
             "items": {
               "allOf": [
