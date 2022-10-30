@@ -81,50 +81,6 @@
     });
   </script>
 
-  <script>
-    var editor = new JSONEditor(document.getElementById('editor_holder'), {
-      ajax: true,
-      disable_edit_json: false,
-      disable_collapse: true,
-      theme: 'bootstrap4',
-      schema: {
-        type: "array",
-        title: "Type specific fields",
-        format: "tabs",
-        items: {
-          title: "Extra fields",
-          headerTemplate: "{{i}} - {{self.name}}",
-          oneOf: [
-            // {
-            //   $ref: "schemas/areas.json",
-            //   title: "Area intervention"
-            // },
-            // {
-            //   $ref: "schemas/crossings.json",
-            //   title: "Crossing intervention"
-            // },
-            {
-              $ref: "schemas/routes.json",
-              title: "Route intervention",
-              name: "routes"
-            },
-            {
-              $ref: "schemas/other.json",
-              title: "Other intervention",
-              name: "other"
-            }
-          ]
-        },
-
-        // Disable additional properties
-        no_additional_properties: true,
-
-        // Require all properties by default
-        required_by_default: true
-      }
-    });
-  </script>
-
   <h1>References</h1>
   <p>https://www.4wheelz.co.uk/learning-to-drive/pedestrian-crossings/</p>
   <p>
