@@ -28,13 +28,17 @@ mapview::mapview(tas)
 tas_clean = tas %>%
   transmute(name = Region_name)
 sf::write_sf(tas_clean, "boundaries/tas_clean.geojson", delete_dsn = TRUE)
-sf::write_sf(lads_england_tidy, "boundaries/lads_england_tidy_may_2022.geojson")
+sf::write_sf(lads_england_tidy, "boundaries/lads_england_tidy_may_2022.geojson", delete_dsn = TRUE)
 
 lads_tas_combined = rbind(
   tas_clean %>% mutate(level = "TA"),
-  lads_england_tidy %>% mutate(level = "LAD")
+  lads_england_tidy %>%
+    mutate(level = "LAD") %>%
+    filter(!name %in% tas_clean$name)
 )
-sf::write_sf(lads_tas_combined, "boundaries/lads_tas_combined.geojson")
+summary(table(lads_tas_combined$name))
+
+sf::write_sf(lads_tas_combined, "boundaries/lads_tas_combined.geojson", delete_dsn = TRUE)
 
 # LPAs --------------------------------------------------------------------
 
