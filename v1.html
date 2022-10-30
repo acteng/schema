@@ -12,7 +12,7 @@
   <h1>Schema v1</h1>
   <p>This options below represent <a href="https://github.com/acteng/schema/tree/main/schemas">editable JSON schema files.</a> </p>
   <p>Comments and suggested changes are welcome</p>
-  <h2>All interventions</h2>
+  <h2>Active travel infrastructure interventions</h2>
 
   <div id='editor_holder'></div>
 
@@ -23,32 +23,54 @@
       disable_collapse: true,
       theme: 'bootstrap4',
       schema: {
-        "title": "Intervention",
+        "title": "Generic information",
         "type": "object",
-        "required": [
-          "name",
-          "year",
-          "budget"
-        ],
         $ref: "schemas/all.json"
       }
-
     });
   </script>
-    <script>
-      var editor = new JSONEditor(document.getElementById('editor_holder'), {
-        ajax: true,
-        disable_edit_json: false,
-        disable_collapse: true,
-        theme: 'bootstrap4',
-        schema: {
-          "title": "Routes",
-          "type": "object",
-          $ref: "schemas/routes.json"
+
+  <script>
+    var editor = new JSONEditor(document.getElementById('editor_holder'), {
+      ajax: true,
+      disable_edit_json: false,
+      disable_collapse: true,
+      theme: 'bootstrap4',
+      schema: {
+          type: "array",
+          title: "Type specific fields",
+          format: "tabs",
+          items: {
+            title: "Extra fields",
+            headerTemplate: "{{i}} - {{self.name}}",
+            oneOf: [
+              {
+                $ref: "schemas/areas.json",
+                title: "Area intervention"
+              },
+              {
+                $ref: "schemas/crossings.json",
+                title: "Crossing intervention"
+              },
+              {
+                $ref: "schemas/routes.json",
+                title: "Route intervention"
+              },
+              {
+                $ref: "schemas/other.json",
+                title: "Other intervention"
+              }
+            ]
+          }
         }
-  
-      });
-    </script>
+    });
+  </script>
+
+  <h1>References</h1>
+  <p>https://www.4wheelz.co.uk/learning-to-drive/pedestrian-crossings/</p>
+  <p>https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/330214/ltn-2-95_pedestrian-crossings.pdf</p>
+  <p>https://content.tfl.gov.uk/lcds-chapter5-junctionsandcrossings.pdf</p>
+
 </body>
 
 </html>
