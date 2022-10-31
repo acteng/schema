@@ -6,7 +6,9 @@
       "type": "string",
       "enum": [
         "Signage",
-        "Sheltered bus stop",
+        "Public transport stop",
+        "Dropped curb for wheeled access",
+        "Access ramp alongside or instead of steps",
         "Other"
       ]
     }
