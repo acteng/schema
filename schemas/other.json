@@ -5,12 +5,9 @@
       "description": "The main type of intervention",
       "type": "string",
       "enum": [
-        "Parklet",
-        "Play area",
-        "Secure cycle parking (e.g. hangars)",
-        "Covered open cycle parking",
-        "Uncovered open cycle parking",
-        "Sheltered bus stop"
+        "Signage",
+        "Sheltered bus stop",
+        "Other"
       ]
     }
    }
