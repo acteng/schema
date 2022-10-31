@@ -6,55 +6,51 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of schema is to provide a basis for prototyping and a schema to
-map existing and planned infrastructure for active travel planning.
-Eventually, the intention is for this repo to also contain associated
-tools and code/documentation to make the schema easy to use for everyone
-wanting to map active travel infrastructure in a consistent way that is
-friendly for data providers and as useful as possible for people using
-the data.
+The goal of this repo is to provide a shared, comprehensive and,
+eventually, authoritative set of categories and datasets to map existing
+and planned infrastructure for active travel planning. Eventually, the
+intention is for this repo to also contain associated tools and
+code/documentation to make schemas defining active travel datasets
+useful for everyone wanting to map active travel infrastructure in a
+consistent way that is friendly and as useful as possible for people
+using the data.
 
 ## Introduction
 
-Database schemas define the ‘shape’ that series of datasets can take.
-They are often visualised in database diagrams such as the image below.
+Database schemas define the fields contained within datasets and the
+values that are allowed. They are often visualised in [database
+diagrams](https://learn.microsoft.com/en-us/sql/ssms/visual-db-tools/design-database-diagrams-visual-database-tools?view=sql-server-ver16).
 
 <!-- ![](https://user-images.githubusercontent.com/1825120/185740368-56effb61-a3c1-4534-bd49-ad42951f2fd7.png) -->
 
-Having such a schema offers advantages:
+Advantages of well-designed and used schemas include:
 
--   Consistency between different users (local authorities, researchers,
-    consultancies, other users)
--   Supporting people generating new plans to think about the data they
-    may need to collect
--   Future-proofness: an evolving schema with empty fields that may
-    become useful encourages datasets to be kept up-to-date
+- Consistency between different users (local authorities, researchers,
+  consultancies, other users)
+- Supporting people generating new plans to think about the data they
+  may need to collect
+- Future-proofness: an evolving schema with empty fields that may become
+  useful encourages datasets to be kept up-to-date
 
-## An example schema
-
-A basic example of a schema for active travel infrastructure is shown
-below.
-
+<!-- ## An example schema -->
+<!-- A basic example of a schema for active travel infrastructure is shown below. -->
 <!-- ![](https://user-images.githubusercontent.com/1825120/185741429-fabb3183-bcbe-4bd9-8396-dff4a533d55d.png) -->
-
-In this schema, there are three tables representing neteworks, routes
-and ways. The ways represent the individual segments that, in
-combination, form routes. In turn, many routes can add-up to represent a
-network. Networks could cover an entire city or be small, e.g. to
-represent the travel network in a particular neighbourhood.
-
-## Schema versioning
+<!-- In this schema, there are three tables representing neteworks, routes and ways. -->
+<!-- The ways represent the individual segments that, in combination, form routes. -->
+<!-- In turn, many routes can add-up to represent a network. -->
+<!-- Networks could cover an entire city or be small, e.g. to represent the travel network in a particular neighbourhood. -->
+<!-- ## Schema versioning -->
 
 Just like software used to process data, data formats, and the
-underlying schemas that define them, should evolve over time. To extend
-the schema above we can add more fields such as MinWidth and MaxWidth
-and add another table, representing point features on the network. This
-updated schema is illustrated below.
+underlying schemas that define them, should evolve over time.
+<!-- To extend the schema above we can add more fields such as MinWidth and MaxWidth and add another table, representing point features on the network. -->
+<!-- This updated schema is illustrated below. -->
 
-![](https://user-images.githubusercontent.com/1825120/185744446-0896f9e8-de0b-43d9-ac9e-21735762017f.png)
+<!-- ![](https://user-images.githubusercontent.com/1825120/185744446-0896f9e8-de0b-43d9-ac9e-21735762017f.png) -->
+<!-- In the future the schema could evolve further. -->
 
-In the future the schema could evolve further. Versioning the schema
-will ensure backwards compatibility and encourage innovation.
+Versioning the schema will ensure backwards compatibility and encourage
+innovation.
 
 ## Existing active travel infrastructure schemas
 
@@ -83,11 +79,10 @@ expressions. Converted into a dataset in the Arrow format, the column
 names and associated data types, example values, asset types and labels
 are as follows, for the Cycle lane/track table, for example:
 
-In a future schema, many of the variables in the schema above could be
-replaced by a well-defined ‘type’ column that accepts values including
-On Road Advisory Cycle Lane, Dedicated Cycle Track and Stepped Cycle
-Track (covering columns 3 to 5 in the above table). See the
-[cid](cid.md) example, [TfL’s schema
+Many of the columns in the schema outlined above have been replaced in
+schemas in this repo by ‘type’ keys that accept values including
+Advisory lane, Full separation and Stepped separation for motor traffic.
+See the [cid](cid.md) example, [TfL’s schema
 document](https://cycling.data.tfl.gov.uk/CyclingInfrastructure/documentation/cid_database_schema.xlsx),
 the repo <https://github.com/PublicHealthDataGeek/CycleInfraLnd/> and
 associated paper (Tait et al.,
@@ -96,6 +91,12 @@ for further details on the CID.
 
 ### Ordnance Survey Schemas
 
-### OSM’s unstructured approach
+TBC.
+
+### OSM
+
+TBC.
 
 ### The OpenInfra project
+
+TBC.
