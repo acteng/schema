@@ -2,29 +2,18 @@
   "properties": {
     "route_type": {
       "title": "Route type",
-      "description": "The main type of active travel infrastructure along the route",
+      "description": "Main type of active travel infrastructure along the route",
       "type": "string",
       "enum": [
         "Footpath",
         "Shared use footpath/cycleway",
         "Cycleway",
-        "Contraflow",
-        "Quietway"
+        "Contraflow"
       ],
       "default": "Footpath"
     },
-    "on_carriageway": {
-      "title": "Relationship to carriageway",
-      "description": "The main way in which the route relates to roads",
-      "type": "string",
-      "enum": [
-        "Parallel to major road(s)",
-        "Parallel to minor road(s)",
-        "Off carriageway on existing route"
-      ]
-    },
     "reallocation": {
-      "title": "How will space be reallocated?",
+      "title": "Main way space reallocated on route",
       "description": "The main source of new space for active travel",
       "type": "string",
       "enum": [
