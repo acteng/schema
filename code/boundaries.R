@@ -1,9 +1,6 @@
 # Aim: get boundary data
 library(tidyverse)
 
-
-
-
 # Local Authority Districts -----------------------------------------------
 # See https://geoportal.statistics.gov.uk/search?q=local%20authority%20district&sort=-created&type=feature%20layer
 
@@ -36,9 +33,29 @@ lads_tas_combined = rbind(
     mutate(level = "LAD") %>%
     filter(!name %in% tas_clean$name)
 )
-summary(table(lads_tas_combined$name))
+
+# summary(table(lads_tas_combined$name)) # 344
+# duplicated_names = duplicated(lads_tas_combined$name)
+# summary(duplicated_names)
+# lads_tas_combined = lads_tas_combined %>%
+#   distinct(name)
 
 sf::write_sf(lads_tas_combined, "boundaries/lads_tas_combined.geojson", delete_dsn = TRUE)
+
+# Avoid multipolygons -----------------------------------------------
+library(tidyverse)
+setwd("~/github/acteng/schema")
+lads_tas_combined = sf::read_sf("boundaries/lads_tas_combined.geojson")
+cornwall = lads_tas_combined %>%
+  filter(name == "Cornwall")
+sf::st_geometry_type(cornwall)
+cornwall_polygons = sf::st_cast(cornwall, "POLYGON")
+cornwall_polygons |>
+  slice(2:3) |>
+  plot()
+# cornwall_concave = concaveman::concaveman(cornwall, concavity = 3) # fail
+cornwall_polygon_centroids = sf::st_centroid()
+
 
 # LPAs --------------------------------------------------------------------
 
