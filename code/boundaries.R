@@ -50,13 +50,58 @@ cornwall = lads_tas_combined %>%
   filter(name == "Cornwall")
 sf::st_geometry_type(cornwall)
 cornwall_polygons = sf::st_cast(cornwall, "POLYGON")
-cornwall_polygons |>
-  slice(2:3) |>
-  plot()
-# cornwall_concave = concaveman::concaveman(cornwall, concavity = 3) # fail
-cornwall_polygon_centroids = sf::st_centroid()
+cornwall_polygons_small = cornwall_polygons |>
+  arrange(area) |>
+  slice(1:(n() - 1))
+plot(cornwall_polygons_small)
+cornwall_polygons_buffered = sf::st_buffer(cornwall_polygons_small, 1000)
+cornwall_union = sf::st_union(c(cornwall_polygons_buffered$geometry, cornwall$geometry))
+cornwall_union
+mapview::mapview(cornwall_union)
 
-
+# Generalise it:
+x = lads_tas_combined
+multi_polygon_to_polygons = function(x) {
+  x_poly = sf::st_cast(x, "POLYGON")
+  x_poly_summary = x_poly %>%
+    sf::st_drop_geometry() %>%
+    group_by(across(1)) %>%
+    summarise(n = n())
+  x_mult_df = x_poly_summary %>%
+    filter(n > 1) %>%
+    select(-n)
+  sel_x_multi = x_mult_df[[1]]
+  if(length(sel_x_multi) == 0) {
+    message("No multi-polygons")
+    return(x)
+  } else {
+    message("Number of multipolygons: ", length(sel_x_multi))
+    message("Polygonising these: ", paste(sel_x_multi, collapse = ", "))
+    i = sel_x_multi[2]
+    for(i in sel_x_multi) {
+      n_x = which(x[[1]] == i)
+      x_poly_i = x_poly %>%
+        filter(across(1) == i)
+      x_poly_i_small = x_poly_i |>
+        arrange(area) |>
+        slice(1:(n() - 1))
+      x_poly_i_large = x_poly_i |>
+        arrange(area) |>
+        slice(n())
+      distances = sf::st_distance(x_poly_i_small, x_poly_i_large)[, 1]
+      distances = as.numeric(distances)
+      for(j in seq_along(distances)) {
+        dbuff = distances[j] + 100 # assuming 100m precision
+        x_poly_i_small$geometry[j] = sf::st_buffer(x_poly_i_small$geometry[j], dbuff)
+      }
+      x_poly_i_union = sf::st_union(c(x_poly_i_small$geometry, x_poly_i_large$geometry))
+      sf::st_geometry(x[n_x, ]) = x_poly_i_union
+    }
+  }
+  x = sf::st_cast(x, "POLYGON")
+  return(x)
+}
+x_poly = multi_polygon_to_polygons(x)
 # LPAs --------------------------------------------------------------------
 
 # See https://geoportal.statistics.gov.uk/datasets/ons::local-planning-authorities-april-2022-uk-buc-3:
@@ -71,3 +116,28 @@ lpas_england = lpas %>%
 
 remotes::install_github("yonghah/esri2sf")
 lads = esri2sf::esri2sf(url = u)
+
+library(tidyverse)
+setwd("~/github/acteng/schema")
+lads_tas_combined = sf::read_sf("boundaries/lads_tas_combined.geojson")
+cornwall = lads_tas_combined %>%
+  filter(name == "Cornwall")
+sf::st_geometry_type(cornwall)
+cornwall_polygons = sf::st_cast(cornwall, "POLYGON")
+cornwall_polygons |>
+  slice(2:3) |>
+  plot()
+cornwall_polygons = cornwall_polygons |>
+  transmute(id = 1:n())
+# cornwall_concave = concaveman::concaveman(cornwall, concavity = 3) # fail
+cornwall_polygon_centroids = sf::st_centroid(cornwall_polygons)
+cornwall_od = od::points_to_odl(cornwall_polygon_centroids)
+plot(cornwall_od$geometry)
+cornwall_od = cornwall_od %>%
+  filter(O == 1)
+plot(cornwall_od$geometry)
+cornwall_od_buffer = sf::st_buffer(cornwall_od, 100)
+mapview::mapview(cornwall_od_buffer)
+cornwall_union = sf::st_union(c(cornwall_od_buffer$geometry, cornwall$geometry))
+cornwall_union
+mapview::mapview(cornwall_union)
