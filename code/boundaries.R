@@ -63,6 +63,7 @@ mapview::mapview(cornwall_union)
 x = lads_tas_combined
 multi_polygon_to_polygons = function(x) {
   x_poly = sf::st_cast(x, "POLYGON")
+  x_poly$area = sf::st_area(x_poly)
   x_poly_summary = x_poly %>%
     sf::st_drop_geometry() %>%
     group_by(across(1)) %>%
@@ -102,6 +103,17 @@ multi_polygon_to_polygons = function(x) {
   return(x)
 }
 x_poly = multi_polygon_to_polygons(x)
+plot(x_poly[1, ])
+plot(x[1, ])
+x %>%
+  filter(name == "Cornwall") %>%
+  plot()
+x_poly %>%
+  filter(name == "Cornwall") %>%
+  plot()
+
+sf::write_sf(x_poly, "boundaries/lads_tas_combined.geojson", delete_dsn = TRUE)
+
 # LPAs --------------------------------------------------------------------
 
 # See https://geoportal.statistics.gov.uk/datasets/ons::local-planning-authorities-april-2022-uk-buc-3:
