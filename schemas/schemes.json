@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "area_type": {
+      "title": "Primary purpose of the scheme",
+      "type": "string",
+      "enum": [
+        "Cycling scheme",
+        "Walking scheme",
+        "Public transport scheme",
+        "Place making",
+        "Traffic management",
+        "Other"
+      ]
+    }
+  }
+}

@@ -112,7 +112,15 @@ x_poly %>%
   filter(name == "Cornwall") %>%
   plot()
 
+
 sf::write_sf(x_poly, "boundaries/lads_tas_combined.geojson", delete_dsn = TRUE)
+
+boundaries_clean = sf::read_sf("boundaries/lads_tas_combined.geojson")
+plot(boundaries_clean)
+names(boundaries_clean)
+boundaries_clean %>% 
+  filter() %>%
+  plot()
 
 # LPAs --------------------------------------------------------------------
 
