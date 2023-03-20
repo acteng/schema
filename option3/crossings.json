@@ -2,7 +2,7 @@
   "properties": {
     "crossing_type": {
       "title": "Crossing type",
-      "description": "The main type of active travel infrastructure along the route",
+      "description": "The type of crossing",
       "type": "string",
       "enum": [
         "Grade separated",
