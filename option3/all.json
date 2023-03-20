@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Name of the intervention",
+      "minLength": 4,
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "minLength": 10,
+      "maxLength": 140,
+      "description": "Description of the intervention (max 140 characters)"
+    }
+  }
+}

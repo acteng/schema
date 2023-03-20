@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Schema option 2</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+</head>
+
+<body>
+  <h1>Schema Option 2</h1>
+  <p>This options below represent <a href="https://github.com/acteng/schema/tree/main/option2">editable JSON schema
+      files.</a> </p>
+  <p>Comments and suggested changes are welcome</p>
+  <h2>Active travel infrastructure interventions</h2>
+
+  <div id='editor_holder'></div>
+
+  <script>
+    var editor = new JSONEditor(document.getElementById('editor_holder'), {
+      ajax: true,
+      disable_edit_json: false,
+      disable_collapse: true,
+      theme: 'bootstrap4',
+      schema: {
+        "$id": "https://example.com/arrays.schema.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "description": "A representation of a person, company, organization, or place",
+        "type": "object",
+        "properties": {
+          // "basic": {
+          //   "title": "Generic intervention (minimal)",
+          //   "type": "array",
+          //   "items": {
+          //     $ref: "all.json"
+          //   }
+          // },
+          "scheme": {
+            "title": "Scheme level information",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "all.json" },
+                { "$ref": "schemes.json" }
+              ]
+            }
+          },
+          "area": {
+            "title": "Area intervention",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "all.json" },
+                { "$ref": "areas.json" }
+              ]
+            }
+          },
+          "crossing": {
+            "title": "Crossing intervention",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "all.json" },
+                { "$ref": "crossings.json" }
+              ]
+            }
+          },
+          "route": {
+            "title": "Route intervention",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "all.json" },
+                { "$ref": "routes.json" }
+              ]
+            }
+          },
+          "furniture": {
+            "title": "Street furniture and urban realm interventions",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "all.json" },
+                { "$ref": "furniture.json" }
+              ]
+            }
+          },
+          "other": {
+            "title": "Other active travel interventions",
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "all.json" },
+                { "$ref": "other.json" }
+              ]
+            }
+          }
+        },
+      }
+    });
+  </script>
+
+  <h1>References</h1>
+  <p>https://www.4wheelz.co.uk/learning-to-drive/pedestrian-crossings/</p>
+  <p>
+    https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/330214/ltn-2-95_pedestrian-crossings.pdf
+  </p>
+  <p>https://content.tfl.gov.uk/lcds-chapter5-junctionsandcrossings.pdf</p>
+
+</body>
+
+</html>
