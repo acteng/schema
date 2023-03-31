@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ATF4 infrastructure",
+  "description": "A single intervention, based on https://www.gov.uk/government/publications/how-to-complete-the-active-travel-fund-4-proforma/guidance-note-for-local-authorities-to-support-completion-of-the-active-travel-fund-4-proforma#types-of-infrastructure",
+  "type": "object",
+  "required": ["intervention"],
+  "properties": {
+    "intervention": {
+      "type": "object",
+      "oneOf": [
+        { "$ref": "#/$defs/segregatedCyclingFacility" },
+        { "$ref": "#/$defs/junctionTreatment" },
+        { "$ref": "#/$defs/permanentFootway" },
+        { "$ref": "#/$defs/sharedUseFacility" }
+      ]
+    }
+  },
+  "$defs": {
+    "segregatedCyclingFacility": {
+      "properties": {
+        "complexity": {
+          "enum": ["high", "medium", "low"]
+        },
+        "numberJunctions": {
+          "type": "number"
+        }
+      }
+    },
+    "junctionTreatment": {
+      "properties": {
+        "complexity": {
+          "enum": ["high", "medium", "low"]
+        }
+      }
+    },
+    "permanentFootway": {
+      "properties": {
+        "complexity": {
+          "enum": ["high", "medium", "low"]
+        }
+      }
+    },
+    "sharedUseFacility": {
+      "properties": {
+        "complexity": {
+          "enum": ["medium", "low"]
+        }
+      }
+    }
+  }
+}

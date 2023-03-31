@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ATF4 Schema option</title>
+    <!-- You can't open this file locally in a browser due to CORS; use something like 'python3 -m http.server' -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+  </head>
+
+  <body>
+    <div id="editor_holder"></div>
+
+    <script>
+      async function setup() {
+        let resp = await fetch("./all.json");
+        let schema = await resp.json();
+        new JSONEditor(document.getElementById("editor_holder"), {
+          ajax: true,
+          disable_edit_json: false,
+          disable_collapse: true,
+          theme: "bootstrap4",
+          schema,
+        });
+      }
+
+      setup();
+    </script>
+
+    <h1>References</h1>
+    <a
+      href="https://www.gov.uk/government/publications/how-to-complete-the-active-travel-fund-4-proforma/guidance-note-for-local-authorities-to-support-completion-of-the-active-travel-fund-4-proforma#types-of-infrastructure"
+      >https://www.gov.uk/government/publications/how-to-complete-the-active-travel-fund-4-proforma/guidance-note-for-local-authorities-to-support-completion-of-the-active-travel-fund-4-proforma#types-of-infrastructure</a
+    >
+  </body>
+</html>
