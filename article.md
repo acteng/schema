@@ -108,7 +108,7 @@ These're some of the bigger questions I want to resolve.
 - Should our schema include contextual data that changes over time?
   - 85%ile speed and average traffic count
 - Does our schema include both details we ask LAs to input and details that we
-  cann automatically calculate?
+  can automatically calculate?
   - I'd say yes; over time, we can automate "existing width"
 - For 2023 (v1 or so timeline), how much detail needs to be in ATIP and part of
   automated analysis?
